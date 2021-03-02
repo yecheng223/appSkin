@@ -1,0 +1,3 @@
+rootProject.name='Skin'
+include ':app'
+include ':mylibrary'
