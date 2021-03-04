@@ -30,7 +30,7 @@ public class SkinResources {
     private volatile static SkinResources instance;
 
     private SkinResources(Context context) {
-
+        mAppResources = context.getResources();
     }
 
 

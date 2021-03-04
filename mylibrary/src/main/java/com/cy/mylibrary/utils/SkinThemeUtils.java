@@ -21,6 +21,7 @@ public class SkinThemeUtils {
 
     /**
      * 获得theme中的属性中定义的 资源id
+     *
      * @param context
      * @param attrs
      * @return
@@ -34,7 +35,6 @@ public class SkinThemeUtils {
         a.recycle();
         return resIds;
     }
-
 
 
     public static void updateStatusBarColor(Activity activity) {

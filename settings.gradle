@@ -1,3 +1,4 @@
 rootProject.name='Skin'
 include ':app'
 include ':mylibrary'
+include ':myskinplugin'
