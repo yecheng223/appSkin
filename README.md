@@ -21,7 +21,7 @@
            mAttributes.add("drawableRight");
            mAttributes.add("drawableBottom");
        }
-       ```
+```
 7、系统状态栏和底部导航栏颜色修改是SkinThemeUtils，可修改类里面声明的颜色属性。
 
 自定义View的自定义属性需实现SkinViewSupport接口，具体方法参考【app】-【CustomView2】。
@@ -104,5 +104,4 @@ public final View tryCreateView(@Nullable View parent, @NonNull String name,
 LayoutInflater源码可知，在创建View时，如果factory不存在就走最下面自己的mPrivateFactory创建View，这个factory就是系统预留的接口，方便开发者拦截View的创建。
 实现Factory2接口，重写CreatView方法，并将View中需要换肤的属性记录。
 
-
-声明：本项目只经过简单测试，没有商用，可能有不完善的地方，欢迎指正。
+**声明：本项目只经过简单测试，没有商用，可能有不完善的地方，欢迎指正。**

@@ -14,6 +14,7 @@ import androidx.core.view.LayoutInflaterCompat;
 import com.cy.mylibrary.utils.SkinThemeUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Observable;
 
 public class ApplicationActivityLifecycle implements Application.ActivityLifecycleCallbacks {
@@ -28,7 +29,7 @@ public class ApplicationActivityLifecycle implements Application.ActivityLifecyc
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        Log.e("aaa","ApplicationActivityLifecycle onActivityCreated");
+        Log.e("aaa", "ApplicationActivityLifecycle onActivityCreated");
         /**
          *  更新状态栏
          */
@@ -40,34 +41,55 @@ public class ApplicationActivityLifecycle implements Application.ActivityLifecyc
         //获得Activity的布局加载器
         LayoutInflater layoutInflater = activity.getLayoutInflater();
 
-        try {
+        /**
+         * 安卓9以前可以
+         */
+        /*try {
             //Android 布局加载器 使用 mFactorySet 标记是否设置过Factory
             //如设置过抛出一次
             //设置 mFactorySet 标签为false
             Field field = LayoutInflater.class.getDeclaredField("mFactorySet");
             field.setAccessible(true);
             field.setBoolean(layoutInflater, false);
+            boolean mFactorySet = field.getBoolean("mFactorySet");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        SkinLayoutInflaterFactory skinLayoutInflaterFactory = new SkinLayoutInflaterFactory
+                (activity);
+        Class<LayoutInflaterCompat> compatClass = LayoutInflaterCompat.class;
+        Field sCheckedField = null;
+        try {
+            sCheckedField = compatClass.getDeclaredField("sCheckedField");
+            sCheckedField.setAccessible(true);
+            sCheckedField.setBoolean(layoutInflater, false);
+
+            Method forceSetFactory2 = compatClass.getDeclaredMethod("forceSetFactory2", LayoutInflater.class, LayoutInflater.Factory2.class);
+            forceSetFactory2.setAccessible(true);
+            forceSetFactory2.invoke(compatClass, layoutInflater, skinLayoutInflaterFactory);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
         //使用factory2 设置布局加载工程
-        SkinLayoutInflaterFactory skinLayoutInflaterFactory = new SkinLayoutInflaterFactory
-                (activity);
-        LayoutInflaterCompat.setFactory2(layoutInflater, skinLayoutInflaterFactory);
+
+        //LayoutInflaterCompat.setFactory2(layoutInflater, skinLayoutInflaterFactory);
         mLayoutInflaterFactories.put(activity, skinLayoutInflaterFactory);
 
         mObserable.addObserver(skinLayoutInflaterFactory);
     }
 
+
     @Override
     public void onActivityStarted(Activity activity) {
-        Log.e("aaa","ApplicationActivityLifecycle onActivityStarted");
+        Log.e("aaa", "ApplicationActivityLifecycle onActivityStarted");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.e("aaa","ApplicationActivityLifecycle onActivityResumed");
+        Log.e("aaa", "ApplicationActivityLifecycle onActivityResumed");
     }
 
     @Override
