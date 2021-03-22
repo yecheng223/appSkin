@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-
 import com.cy.mylibrary.utils.SkinThemeUtils;
 
 import java.lang.reflect.Constructor;

@@ -134,6 +134,9 @@ public class SkinResources {
      * @return
      */
     public Object getBackground(int resId) {
+        if (resId==0){
+            return null;
+        }
         String resourcesTypeName = mAppResources.getResourceTypeName(resId);
 
         if ("color".equals(resourcesTypeName)) {

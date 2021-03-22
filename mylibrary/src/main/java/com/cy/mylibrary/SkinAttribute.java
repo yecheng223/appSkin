@@ -2,13 +2,12 @@ package com.cy.mylibrary;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
 
 import androidx.core.view.ViewCompat;
 
@@ -34,6 +33,7 @@ public class SkinAttribute {
         mAttributes.add("drawableTop");
         mAttributes.add("drawableRight");
         mAttributes.add("drawableBottom");
+        mAttributes.add("indeterminateDrawable");
     }
 
     //记录换肤需要操作的View与属性信息
@@ -111,6 +111,9 @@ public class SkinAttribute {
                     case "background":
                         Object background = SkinResources.getInstance().getBackground(skinPair
                                 .resId);
+                        if (background==null){
+                            return;
+                        }
                         //背景可能是 @color 也可能是 @drawable
                         if (background instanceof Integer) {
                             view.setBackgroundColor((int) background);
@@ -143,6 +146,15 @@ public class SkinAttribute {
                         break;
                     case "drawableBottom":
                         bottom = SkinResources.getInstance().getDrawable(skinPair.resId);
+                        break;
+                    case "indeterminateDrawable":
+                        background = SkinResources.getInstance().getBackground(skinPair.resId);
+                        if (background instanceof Integer) {
+                            ((ProgressBar) view).setIndeterminateDrawable(new ColorDrawable((Integer)
+                                    background));
+                        } else {
+                            ((ProgressBar) view).setIndeterminateDrawable((Drawable) background);
+                        }
                         break;
                     default:
                         break;

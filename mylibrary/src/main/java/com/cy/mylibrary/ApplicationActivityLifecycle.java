@@ -3,11 +3,9 @@ package com.cy.mylibrary;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
-
 
 import androidx.core.view.LayoutInflaterCompat;
 

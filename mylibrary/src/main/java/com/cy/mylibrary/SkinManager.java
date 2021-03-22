@@ -7,7 +7,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
-
 import com.cy.mylibrary.utils.SkinResources;
 
 import java.lang.reflect.Method;
